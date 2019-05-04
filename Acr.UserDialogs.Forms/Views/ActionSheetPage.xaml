@@ -25,14 +25,11 @@
               VerticalOptions="Center"
               BackgroundColor="White">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -42,11 +39,18 @@
                    FontSize="Large"
                    HorizontalOptions="CenterAndExpand" />
 
-            <ListView Grid.Row="1"
-                      Grid.ColumnSpan="2">
+            <Label Text="{Binding Message}"
+                   Grid.Row="1"
+                   FontSize="Medium"
+                   HorizontalOptions="CenterAndExpand" />
+
+            <ListView ItemsSource="{Binding Items}"
+                      Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Message}" />
+                        <ImageCell ImageSource="{Binding Icon}"
+                                   Text="{Binding Title}"
+                                   Command="{Binding Action}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -54,13 +58,11 @@
             <Button Text="{Binding CancelText}"
                     Command="{Binding Cancel}"
                     IsVisible="{Binding IsCancelVisible}"
-                    Grid.Row="2"
-                    Grid.Column="0" />
+                    Grid.Row="3" />
 
             <Button Text="{Binding OkText}"
                     Command="{Binding Ok}"
-                    Grid.Row="2"
-                    Grid.Column="1" />
+                    Grid.Row="4" />
         </Grid>
     </rg:PopupPage.Content>
 </rg:PopupPage>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -34,7 +35,7 @@ namespace Acr.UserDialogs.Forms
             return () =>
             {
                 if (!popped)
-                    Device.BeginInvokeOnMainThread(async () => await PopupNavigation.Instance.PopAsync());
+                    Pop();
             };
         });
 
@@ -74,15 +75,46 @@ namespace Acr.UserDialogs.Forms
             return () =>
             {
                 if (!popped)
-                    Device.BeginInvokeOnMainThread(async () => await PopupNavigation.Instance.PopAsync());
+                    Pop();
             };
         });
+
+
+        public async void ActionSheet(ActionSheetConfig config)
+        {
+            var vm = new ActionSheetViewModel
+            {
+                Title = config.Title,
+                Message = config.Message,
+                Items = config
+                    .Items
+                    .Select(x => new ActionSheetItemViewModel
+                    {
+                        Text = x.Title,
+                        Icon = x.Icon,
+                        Action = PopAction(x.Action)
+                    })
+                    .ToList(),
+
+                CancelText = "Cancel",
+                Cancel = PopAction(() => { }),
+
+                OkText = "Ok",
+                Ok = PopAction(() => { })
+            };
+            await PopupNavigation.Instance.PushAsync(new ActionSheetPage
+            {
+                BindingContext = vm
+            });
+        }
+
+
+        static void Pop() => Device.BeginInvokeOnMainThread(async () => await PopupNavigation.Instance.PopAsync());
 
 
         static ICommand PopAction(Action postAction) => new Command(
             () => Device.BeginInvokeOnMainThread(async () =>
             {
-
                 await PopupNavigation.Instance.PopAsync();
                 postAction();
             })

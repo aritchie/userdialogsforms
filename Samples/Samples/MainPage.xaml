@@ -12,6 +12,7 @@
         <TableView>
             <TableRoot>
                 <TableSection>
+                    <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
                     <TextCell Text="Alert" Command="{Binding Alert}" />
                     <TextCell Text="Confirm" Command="{Binding Confirm}" />
                 </TableSection>

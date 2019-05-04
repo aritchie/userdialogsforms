@@ -14,6 +14,19 @@ namespace Samples
 
         public MainViewModel()
         {
+            this.ActionSheet = new Command(() =>
+            {
+                this.dialogs.ActionSheet(
+                    new ActionSheetConfig
+                    {
+                        Title = "TEST ACTIONSHEET",
+                        Message = "HELL I AM TALKING TO YOU",
+
+                    }
+                    .AddAction("1", () => dialogs.Alert("1"))
+                    .AddAction("2", () => dialogs.Alert("2"))
+                );
+            });
             this.Alert = new Command(async () =>
             {
                 await this.dialogs
@@ -40,6 +53,7 @@ namespace Samples
         }
 
 
+        public ICommand ActionSheet { get; }
         public ICommand Alert { get; }
         public ICommand Confirm { get; }
     }
