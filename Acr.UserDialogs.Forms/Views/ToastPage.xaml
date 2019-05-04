@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:rg="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+              xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+              x:Class="Acr.UserDialogs.Forms.Views.ToastPage"
+              BackgroundColor="{Binding BackgroundColor}"
+              CloseWhenBackgroundIsClicked="False">
+
+    <rg:PopupPage.Animation>
+        <rga:ScaleAnimation PositionIn="Center"
+                            PositionOut="Center"
+                            ScaleIn="1.2"
+                            ScaleOut="0.8"
+                            DurationIn="400"
+                            DurationOut="300"
+                            EasingIn="SinOut"
+                            EasingOut="SinIn"
+                            HasBackgroundAnimation="True"/>
+    </rg:PopupPage.Animation>
+
+    <rg:PopupPage.Content>
+        <StackLayout>
+            <Label Text="" />
+            <ProgressBar  />
+        </StackLayout>
+    </rg:PopupPage.Content>
+</rg:PopupPage>
