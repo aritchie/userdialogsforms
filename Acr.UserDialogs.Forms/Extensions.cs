@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive;
 
+
 namespace Acr.UserDialogs.Forms
 {
     public static class Extensions
@@ -10,6 +11,16 @@ namespace Acr.UserDialogs.Forms
             {
                 Title = title,
                 Message = message
+            });
+
+
+        public static IObservable<bool> Confirm(this IUserDialogs dialogs, string message, string title = null, string okText = null, string cancelText = null)
+            => dialogs.Confirm(new ConfirmConfig
+            {
+                Title = title,
+                Message = message,
+                OkText = okText,
+                CancelText = cancelText
             });
     }
 }
