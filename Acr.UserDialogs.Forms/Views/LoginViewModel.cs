@@ -10,8 +10,8 @@ namespace Acr.UserDialogs.Forms.Views
     {
         [Reactive] public string ErrorMessage { get; set; }
 
-        [Reactive] public string UserIdentifierLabel { get; set; }
-        [Reactive] public string UserIdentifierPlaceholder { get; set; }
+        [Reactive] public string LoginValue { get; set; }
+        [Reactive] public string LoginValuePlaceholder { get; set; }
         [Reactive] public string UserIdentifier { get; set; }
 
         [Reactive] public string PasswordLabel { get; set; }

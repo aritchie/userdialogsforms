@@ -20,10 +20,10 @@
 
     <rg:PopupPage.Content>
         <Grid Margin="15"
-                  Padding="15"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="Center"
-                  BackgroundColor="White">
+              Padding="15"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="Center"
+              BackgroundColor="White">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />

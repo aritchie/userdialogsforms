@@ -53,9 +53,9 @@
 
             <Entry Text="{Binding Value}" />
 
-            <Button Text="{Binding CancelText}"
+            <Button Text="{Binding CancelLabel}"
                     Command="{Binding Cancel}"
-                    IsVisible="{Binding IsCancelVisible}"
+                    IsVisible="{Binding IsCancellable}"
                     Grid.Row="2"
                     Grid.Column="0" />
 

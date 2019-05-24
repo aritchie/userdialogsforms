@@ -3,24 +3,18 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Authors>aritchie</Authors>
-        <!--
-        <NullableContextOptions>enable</NullableContextOptions>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <LangVersion>8.0</LangVersion>
-        -->
         <LangVersion>latest</LangVersion>
         <Company />
         <Description>ACR User Dialogs (Forms Edition)</Description>
         <Product>ACR User Dialogs (Forms Edition)</Product>
         <IncludeSymbols>true</IncludeSymbols>
-        <Version>0.1.0-beta</Version>
+        <Version>1.0.0-beta</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/aritchie/userdialogsforms</PackageProjectUrl>
         <!--<PackageIconUrl>https://raw.githubusercontent.com/shinyorg/shiny/dev/art/nuget.png</PackageIconUrl>-->
         <!--<PackageReleaseNotes>https://shinydocs.azurewebsites.net/blog/</PackageReleaseNotes>-->
-        <PackageTags>xamarin uwp ios android ble geofences gps location background jobs settings environment speech sensors acr</PackageTags>
+        <PackageTags>xamarin popups acr</PackageTags>
 
-        <NullableContextOption>enable</NullableContextOption>
         <RepositoryUrl>https://github.com/aritchie/userdialogsforms</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>True</IncludeSymbols>
@@ -46,32 +40,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="FodyWeavers.xsd" />
+        <None Include="FodyWeavers.xsd" />
+        <None Include="todo" />
     </ItemGroup>
 
     <ItemGroup>
+        <!--<PackageReference Include="ReactiveUI" Version="9.16.1" />-->
         <PackageReference Include="ReactiveUI.Fody" Version="9.16.1" />
         <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
         <PackageReference Include="System.Reactive" Version="4.1.5" />
         <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="Views\ActionSheetPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Views\ColorPickerPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Views\LoginPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Views\ProgressPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Views\ToastPage.xaml">
-        <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

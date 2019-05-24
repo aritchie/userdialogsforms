@@ -11,10 +11,13 @@
     <ContentPage.Content>
         <TableView>
             <TableRoot>
-                <TableSection>
+                <TableSection Title="Standard">
                     <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
                     <TextCell Text="Alert" Command="{Binding Alert}" />
                     <TextCell Text="Confirm" Command="{Binding Confirm}" />
+                </TableSection>
+                <TableSection Title="Toasts">
+                    <TextCell Text="Standard" Command="{Binding Toast}" />
                 </TableSection>
             </TableRoot>
         </TableView>

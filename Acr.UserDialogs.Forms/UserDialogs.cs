@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs.Forms.Views;
+using Rg.Plugins.Popup.Enums;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
@@ -12,8 +14,9 @@ namespace Acr.UserDialogs.Forms
 {
     public class UserDialogs : IUserDialogs
     {
-        public IObservable<Unit> Alert(AlertConfig config) => Observable.Create<Unit>(async ob =>
+        public async Task Alert(AlertConfig config, CancellationToken cancelToken = default)
         {
+            var tcs = new TaskCompletionSource<object>();
             var popped = false;
             var vm = new AlertViewModel
             {
@@ -22,9 +25,11 @@ namespace Acr.UserDialogs.Forms
                 OkText = config.OkText,
                 Ok = PopAction(() =>
                 {
+                    if (popped)
+                        return;
+
                     popped = true;
-                    ob.OnNext(Unit.Default);
-                    ob.OnCompleted();
+                    tcs.TrySetResult(null);
                 }),
             };
             await PopupNavigation.Instance.PushAsync(new AlertPage
@@ -32,16 +37,13 @@ namespace Acr.UserDialogs.Forms
                 BindingContext = vm
             });
 
-            return () =>
-            {
-                if (!popped)
-                    Pop();
-            };
-        });
+            await tcs.Task;
+        }
 
 
-        public IObservable<bool> Confirm(ConfirmConfig config) => Observable.Create<bool>(async ob =>
+        public async Task<bool> Confirm(ConfirmConfig config, CancellationToken cancelToken = default)
         {
+            var tcs = new TaskCompletionSource<bool>();
             //if (useYesNo)
             //{
             //    cancel = this.localize["No"];
@@ -57,27 +59,22 @@ namespace Acr.UserDialogs.Forms
                 Ok = PopAction(() =>
                 {
                     popped = true;
-                    ob.OnNext(true);
-                    ob.OnCompleted();
+                    tcs.TrySetResult(true);
                 }),
                 Cancel = PopAction(() =>
                 {
                     popped = true;
-                    ob.OnNext(false);
-                    ob.OnCompleted();
+                    tcs.TrySetResult(false);
                 }),
             };
+
             await PopupNavigation.Instance.PushAsync(new AlertPage
             {
                 BindingContext = vm
             });
 
-            return () =>
-            {
-                if (!popped)
-                    Pop();
-            };
-        });
+            return await tcs.Task;
+        }
 
 
         public async void ActionSheet(ActionSheetConfig config)
@@ -109,13 +106,71 @@ namespace Acr.UserDialogs.Forms
         }
 
 
-        static void Pop() => Device.BeginInvokeOnMainThread(async () => await PopupNavigation.Instance.PopAsync());
+        public Task<PromptResult> Prompt(PromptConfig config, CancellationToken cancelToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Login(LoginConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Progress(ProgressConfig config)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void Toast(ToastConfig config)
+        {
+            var vm = new ToastViewModel
+            {
+                Message = config.Message,
+                MessageTextColor = config.MessageTextColor,
+                BackgroundColor = config.BackgroundColor,
+                PositionIn = config.Position == ToastPosition.Top
+                    ? MoveAnimationOptions.Top
+                    : MoveAnimationOptions.Bottom,
+                Tap = PopAction(() =>
+                    config.OnTap?.Invoke()
+                )
+            };
+            var toast = new ToastPage
+            {
+                BindingContext = vm
+            };
+            await PopupNavigation.Instance.PushAsync(toast);
+
+            Task.Delay(config.DisplayTime)
+                .ContinueWith(_ => Pop());
+        }
+
+
+        static void Pop() => Device.BeginInvokeOnMainThread(async () =>
+        {
+            try
+            {
+                if (PopupNavigation.Instance.PopupStack.Count > 0)
+                    await PopupNavigation.Instance.PopAsync();
+            }
+            catch
+            {
+                // swallow
+            }
+        });
 
 
         static ICommand PopAction(Action postAction) => new Command(
             () => Device.BeginInvokeOnMainThread(async () =>
             {
-                await PopupNavigation.Instance.PopAsync();
+                try
+                {
+                    await PopupNavigation.Instance.PopAsync();
+                }
+                catch
+                {
+                    // swallow
+                }
                 postAction();
             })
         );

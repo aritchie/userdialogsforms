@@ -1,14 +1,17 @@
 ﻿using System;
-using Xamarin.Forms;
+using System.Drawing;
+using System.Windows.Input;
 
 
 namespace Acr.UserDialogs.Forms.Views
 {
-    public class ToastViewModel : ViewModel
+    public class ToastViewModel
     {
-        public double Progress { get; set; }
-        public TimeSpan TimeToShow { get; set; }
-        public ImageSource Icon { get; set; }
-        public Color BackgroundColor { get; set; } = Color.White;
+        public string Message { get; set; }
+        public Color MessageTextColor { get; set; }
+        public Color BackgroundColor { get; set; }
+        public Rg.Plugins.Popup.Enums.MoveAnimationOptions PositionIn { get; set; }
+        public Rg.Plugins.Popup.Enums.MoveAnimationOptions PositionOut { get; set; }
+        public ICommand Tap { get; set; }
     }
 }

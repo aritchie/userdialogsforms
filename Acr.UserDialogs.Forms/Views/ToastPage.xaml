@@ -4,25 +4,33 @@
               xmlns:rg="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
               xmlns:rga="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
               x:Class="Acr.UserDialogs.Forms.Views.ToastPage"
-              BackgroundColor="{Binding BackgroundColor}"
-              CloseWhenBackgroundIsClicked="False">
+              BackgroundInputTransparent="True">
 
     <rg:PopupPage.Animation>
-        <rga:ScaleAnimation PositionIn="Center"
-                            PositionOut="Center"
+        <rga:ScaleAnimation PositionIn="Bottom"
+                            PositionOut="Bottom"
                             ScaleIn="1.2"
                             ScaleOut="0.8"
                             DurationIn="400"
                             DurationOut="300"
                             EasingIn="SinOut"
                             EasingOut="SinIn"
-                            HasBackgroundAnimation="True"/>
+                            HasBackgroundAnimation="True" />
     </rg:PopupPage.Animation>
 
     <rg:PopupPage.Content>
-        <StackLayout>
-            <Label Text="" />
-            <ProgressBar  />
+        <StackLayout BackgroundColor="{Binding BackgroundColor}"
+                     VerticalOptions="End"
+                     HorizontalOptions="FillAndExpand">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Tap}" />
+            </StackLayout.GestureRecognizers>
+
+            <Label Text="{Binding Message}"
+                   TextColor="{Binding MessageTextColor}"
+                   Margin="10" />
+
+            <!--<ProgressBar />-->
         </StackLayout>
     </rg:PopupPage.Content>
 </rg:PopupPage>

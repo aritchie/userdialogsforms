@@ -20,15 +20,18 @@
 
     <rg:PopupPage.Content>
         <Grid>
-            <Entry Text="{Binding UserIdentity}"
-                   Placeholder="{Binding UserIdentityPlaceholder}" />
+            <Label Text="{Binding LoginValueLabel}" />
+            <Entry Text="{Binding LoginValue}"
+                   Placeholder="{Binding LogoinValuePlaceholder}" />
 
+            <Label Text="{Binding PasswordLabel}" />
             <Entry Text="{Binding Password}"
                    Placeholder="{Binding PasswordPlaceholder}"
                    IsPassword="true" />
 
             <Button Text="{Binding CancelText}"
-                    Command="{Binding Cancel}" />
+                    Command="{Binding Cancel}"
+                    IsVisible="{Binding IsCancellable}" />
 
             <Button Text="{Binding LoginText}"
                     Command="{Binding Login}"/>

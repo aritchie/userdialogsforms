@@ -35,20 +35,31 @@ namespace Samples
                         Title = "TEST TITLE",
                         Message = "This is a really long piece of text that can fit in a scrollview.  You can ramble on and on and on and on and on and on and on",
                         OkText = "HI"
-                    })
-                    .ToTask();
+                    });
             });
             this.Confirm = new Command(async () =>
             {
-                await this.dialogs
+                var result = await this.dialogs
                     .Confirm(new ConfirmConfig
                     {
                         Title = "TEST TITLE",
                         Message = "This is a really long piece of text that can fit in a scrollview.  You can ramble on and on and on and on and on and on and on",
                         OkText = "Yes",
                         CancelText = "No"
-                    })
-                    .ToTask();
+                    });
+            });
+            this.Toast = new Command(() =>
+            {
+                this.dialogs.Toast(new ToastConfig
+                {
+                    Message = "Hello from the toast window",
+                    MessageTextColor = Color.White,
+                    BackgroundColor = Color.Black,
+                    DisplayTime = TimeSpan.FromSeconds(5),
+                    OnTap = () =>
+                    {
+                    }
+                });
             });
         }
 
@@ -56,5 +67,6 @@ namespace Samples
         public ICommand ActionSheet { get; }
         public ICommand Alert { get; }
         public ICommand Confirm { get; }
+        public ICommand Toast { get; }
     }
 }
