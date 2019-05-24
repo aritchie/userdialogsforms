@@ -34,7 +34,8 @@
                     HorizontalOptions="CenterAndExpand" />
 
             <Entry Text="{Binding Value}"
-                   Placeholder="{Binding ValuePlaceholder}" />
+                   Placeholder="{Binding ValuePlaceholder}"
+                   Keyboard="{Binding Keyboard}" />
 
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="FillAndExpand">

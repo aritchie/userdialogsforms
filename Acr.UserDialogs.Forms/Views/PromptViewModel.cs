@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-
+using Xamarin.Forms;
 
 namespace Acr.UserDialogs.Forms.Views
 {
@@ -13,6 +13,7 @@ namespace Acr.UserDialogs.Forms.Views
 
         public string Title { get; set; }
         public string Message { get; set; }
+        public Keyboard Keyboard { get; set; }
         public string OkLabel { get; set; }
         public string CancelLabel { get; set; }
         public bool IsCancellable { get; set; }

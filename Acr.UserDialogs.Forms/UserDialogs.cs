@@ -91,6 +91,7 @@ namespace Acr.UserDialogs.Forms
                 Message = config.Message,
                 Value = config.CurrentValue ?? String.Empty,
                 ValuePlaceholder = config.ValuePlaceholder ?? String.Empty,
+                Keyboard = config.Keyboard,
                 IsCancellable = config.IsCancellable,
                 OkLabel = config.OkLabel ?? "OK",
                 CancelLabel = config.CancelLabel ?? "Cancel"
@@ -162,7 +163,8 @@ namespace Acr.UserDialogs.Forms
             {
                 try
                 {
-                    await PopupNavigation.Instance.PopAsync();
+                    if (PopupNavigation.Instance.PopupStack.Count > 0)
+                        await PopupNavigation.Instance.PopAsync();
                 }
                 catch
                 {
