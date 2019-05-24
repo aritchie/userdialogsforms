@@ -19,51 +19,33 @@
     </rg:PopupPage.Animation>
 
     <rg:PopupPage.Content>
-        <Grid Margin="15"
-                  Padding="15"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="Center"
-                  BackgroundColor="White">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <StackLayout Margin="15"
+                     Padding="15"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     BackgroundColor="White">
 
             <Label Text="{Binding Title}"
-                   Grid.Row="0"
-                   Grid.ColumnSpan="2"
                    FontSize="Large"
                    HorizontalOptions="CenterAndExpand"/>
 
-            <ScrollView Grid.Row="1"
-                        Grid.ColumnSpan="2">
-                <StackLayout>
-                    <Label Text="{Binding Message}"
-                           FontSize="Small"
-                           HorizontalOptions="CenterAndExpand" />
-                </StackLayout>
-            </ScrollView>
+            <Label Text="{Binding Message}"
+                    FontSize="Small"
+                    HorizontalOptions="CenterAndExpand" />
 
-            <Entry Text="{Binding Value}" />
+            <Entry Text="{Binding Value}"
+                   Placeholder="{Binding ValuePlaceholder}" />
 
-            <Button Text="{Binding CancelLabel}"
-                    Command="{Binding Cancel}"
-                    IsVisible="{Binding IsCancellable}"
-                    Grid.Row="2"
-                    Grid.Column="0" />
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Button Text="{Binding CancelLabel}"
+                        Command="{Binding Cancel}"
+                        IsVisible="{Binding IsCancellable}" />
 
-            <Button Text="{Binding OkText}"
-                    Command="{Binding Ok}"
-                    Grid.Row="2"
-                    Grid.Column="1" />
-        </Grid>
+                <Button Text="{Binding OkLabel}"
+                        Command="{Binding Ok}" />
+            </StackLayout>
+        </StackLayout>
 
     </rg:PopupPage.Content>
 </rg:PopupPage>

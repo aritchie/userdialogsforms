@@ -6,7 +6,7 @@ namespace Acr.UserDialogs.Forms
 {
     public interface IUserDialogs
     {
-        
+
 
         Task Alert(AlertConfig config, CancellationToken cancelToken = default);
         Task<bool> Confirm(ConfirmConfig config, CancellationToken cancelToken = default);

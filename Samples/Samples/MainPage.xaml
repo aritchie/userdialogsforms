@@ -15,6 +15,7 @@
                     <TextCell Text="ActionSheet" Command="{Binding ActionSheet}" />
                     <TextCell Text="Alert" Command="{Binding Alert}" />
                     <TextCell Text="Confirm" Command="{Binding Confirm}" />
+                    <TextCell Text="Prompt" Command="{Binding Prompt}" />
                 </TableSection>
                 <TableSection Title="Toasts">
                     <TextCell Text="Standard" Command="{Binding Toast}" />

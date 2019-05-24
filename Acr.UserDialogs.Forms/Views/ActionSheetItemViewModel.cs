@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
+
 namespace Acr.UserDialogs.Forms.Views
 {
     public class ActionSheetItemViewModel

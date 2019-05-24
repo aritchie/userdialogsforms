@@ -10,7 +10,8 @@ namespace Acr.UserDialogs.Forms
             => dialogs.Alert(new AlertConfig
             {
                 Title = title,
-                Message = message
+                Message = message,
+                OkLabel = okText
             });
 
 
@@ -19,8 +20,19 @@ namespace Acr.UserDialogs.Forms
             {
                 Title = title,
                 Message = message,
-                OkText = okText,
-                CancelText = cancelText
+                OkLabel = okText,
+                CancelLabel = cancelText
+            });
+
+
+
+        public static Task<PromptResult> Prompt(this IUserDialogs dialogs, string message, string title = null, string okText = null, string cancelText = null)
+            => dialogs.Prompt(new PromptConfig
+            {
+                Title = title,
+                Message = message,
+                OkLabel = okText,
+                CancelLabel = cancelText
             });
 
 

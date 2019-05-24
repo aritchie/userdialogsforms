@@ -10,11 +10,9 @@ namespace Acr.UserDialogs.Forms.Views
         public string Title { get; set; }
         public string Message { get; set; }
 
-        public string CancelText { get; set; } = "Cancel";
+        public bool IsCancellable { get; set; }
+        public string CancelLabel { get; set; }
         public ICommand Cancel { get; set; }
-
-        public string OkText { get; set; } = "Ok";
-        public ICommand Ok { get; set; }
 
         public List<ActionSheetItemViewModel> Items { get; set; }
     }

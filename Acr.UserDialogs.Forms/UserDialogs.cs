@@ -17,20 +17,12 @@ namespace Acr.UserDialogs.Forms
         public async Task Alert(AlertConfig config, CancellationToken cancelToken = default)
         {
             var tcs = new TaskCompletionSource<object>();
-            var popped = false;
             var vm = new AlertViewModel
             {
                 Title = config.Title,
                 Message = config.Message,
-                OkText = config.OkText,
-                Ok = PopAction(() =>
-                {
-                    if (popped)
-                        return;
-
-                    popped = true;
-                    tcs.TrySetResult(null);
-                }),
+                OkText = config.OkLabel ?? "OK",
+                Ok = PopAction(() => tcs.TrySetResult(null))
             };
             await PopupNavigation.Instance.PushAsync(new AlertPage
             {
@@ -44,28 +36,14 @@ namespace Acr.UserDialogs.Forms
         public async Task<bool> Confirm(ConfirmConfig config, CancellationToken cancelToken = default)
         {
             var tcs = new TaskCompletionSource<bool>();
-            //if (useYesNo)
-            //{
-            //    cancel = this.localize["No"];
-            //    ok = this.localize["Yes"];
-            //}
-            var popped = false;
             var vm = new AlertViewModel
             {
                 Title = config.Title,
                 Message = config.Message,
-                OkText = config.OkText,
-                CancelText = config.CancelText,
-                Ok = PopAction(() =>
-                {
-                    popped = true;
-                    tcs.TrySetResult(true);
-                }),
-                Cancel = PopAction(() =>
-                {
-                    popped = true;
-                    tcs.TrySetResult(false);
-                }),
+                OkText = config.OkLabel ?? "OK",
+                CancelText = config.CancelLabel ?? "Cancel",
+                Ok = PopAction(() => tcs.TrySetResult(true)),
+                Cancel = PopAction(() => tcs.TrySetResult(false)),
             };
 
             await PopupNavigation.Instance.PushAsync(new AlertPage
@@ -93,11 +71,9 @@ namespace Acr.UserDialogs.Forms
                     })
                     .ToList(),
 
-                CancelText = "Cancel",
+                IsCancellable = config.IsCancellable,
+                CancelLabel = config.CancelLabel ?? "Cancel",
                 Cancel = PopAction(() => { }),
-
-                OkText = "Ok",
-                Ok = PopAction(() => { })
             };
             await PopupNavigation.Instance.PushAsync(new ActionSheetPage
             {
@@ -106,20 +82,41 @@ namespace Acr.UserDialogs.Forms
         }
 
 
-        public Task<PromptResult> Prompt(PromptConfig config, CancellationToken cancelToken = default)
+        public async Task<PromptResult> Prompt(PromptConfig config, CancellationToken cancelToken = default)
         {
-            throw new NotImplementedException();
+            var tcs = new TaskCompletionSource<PromptResult>();
+            var vm = new PromptViewModel
+            {
+                Title = config.Title,
+                Message = config.Message,
+                Value = config.CurrentValue ?? String.Empty,
+                ValuePlaceholder = config.ValuePlaceholder ?? String.Empty,
+                IsCancellable = config.IsCancellable,
+                OkLabel = config.OkLabel ?? "OK",
+                CancelLabel = config.CancelLabel ?? "Cancel"
+            };
+            vm.Ok = PopAction(() => tcs.TrySetResult(new PromptResult(true, vm.Value.Trim())));
+            vm.Cancel = PopAction(() => tcs.TrySetResult(new PromptResult(true, vm.Value.Trim())));
+
+            await PopupNavigation.Instance.PushAsync(new PromptPage
+            {
+                BindingContext = vm
+            });
+            return await tcs.Task;
         }
+
 
         public void Login(LoginConfig config)
         {
             throw new NotImplementedException();
         }
 
+
         public void Progress(ProgressConfig config)
         {
             throw new NotImplementedException();
         }
+
 
         public async void Toast(ToastConfig config)
         {

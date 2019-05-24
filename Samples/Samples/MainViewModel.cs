@@ -23,8 +23,8 @@ namespace Samples
                         Message = "HELL I AM TALKING TO YOU",
 
                     }
-                    .AddAction("1", () => dialogs.Alert("1"))
-                    .AddAction("2", () => dialogs.Alert("2"))
+                    .Add("1", () => dialogs.Alert("1"))
+                    .Add("2", () => dialogs.Alert("2"))
                 );
             });
             this.Alert = new Command(async () =>
@@ -34,7 +34,7 @@ namespace Samples
                     {
                         Title = "TEST TITLE",
                         Message = "This is a really long piece of text that can fit in a scrollview.  You can ramble on and on and on and on and on and on and on",
-                        OkText = "HI"
+                        OkLabel = "HI"
                     });
             });
             this.Confirm = new Command(async () =>
@@ -44,9 +44,14 @@ namespace Samples
                     {
                         Title = "TEST TITLE",
                         Message = "This is a really long piece of text that can fit in a scrollview.  You can ramble on and on and on and on and on and on and on",
-                        OkText = "Yes",
-                        CancelText = "No"
+                        OkLabel = "Yes",
+                        CancelLabel = "No"
                     });
+            });
+            this.Prompt = new Command(async () =>
+            {
+                var result = await this.dialogs.Prompt("Test", "Hello");
+                this.dialogs.Toast($"OK: {result.Ok} - Text: {result.Value}");
             });
             this.Toast = new Command(() =>
             {
@@ -67,6 +72,7 @@ namespace Samples
         public ICommand ActionSheet { get; }
         public ICommand Alert { get; }
         public ICommand Confirm { get; }
+        public ICommand Prompt { get; }
         public ICommand Toast { get; }
     }
 }

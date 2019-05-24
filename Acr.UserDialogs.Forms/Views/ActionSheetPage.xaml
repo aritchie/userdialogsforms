@@ -30,18 +30,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Label Text="{Binding Title}"
                    Grid.Row="0"
-                   Grid.ColumnSpan="2"
                    FontSize="Large"
                    HorizontalOptions="CenterAndExpand" />
 
             <Label Text="{Binding Message}"
                    Grid.Row="1"
-                   FontSize="Medium"
+                   FontSize="Small"
                    HorizontalOptions="CenterAndExpand" />
 
             <ListView ItemsSource="{Binding Items}"
@@ -49,20 +47,16 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding Icon}"
-                                   Text="{Binding Title}"
+                                   Text="{Binding Text}"
                                    Command="{Binding Action}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="{Binding CancelText}"
+            <Button Text="{Binding CancelLabel}"
                     Command="{Binding Cancel}"
-                    IsVisible="{Binding IsCancelVisible}"
+                    IsVisible="{Binding IsCancellable}"
                     Grid.Row="3" />
-
-            <Button Text="{Binding OkText}"
-                    Command="{Binding Ok}"
-                    Grid.Row="4" />
         </Grid>
     </rg:PopupPage.Content>
 </rg:PopupPage>
